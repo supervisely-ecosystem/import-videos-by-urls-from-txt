@@ -17,5 +17,8 @@
   "isolate": true,
   "headless": true,
   "icon": "https://i.imgur.com/iJvQXPJ.png",
-  "icon_background": "#FFFFFF"
+  "icon_background": "#FFFFFF",
+  "context_menu": {
+    "target": ["files_file"]
+  }
 }
