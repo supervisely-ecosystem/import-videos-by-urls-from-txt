@@ -43,16 +43,20 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
     if dataset is None:
         dataset = api.dataset.create(project.id, DATASET_NAME)
 
-    for video_url in video_urls:
+    for idx, video_url in enumerate(video_urls):
         try:
+            app_logger.info("Processing [{}/{}]: {!r}".format(idx, len(video_urls), video_url))
             video_name = sly.fs.get_file_name_with_ext(video_url)
             local_video_path = os.path.join(my_app.data_dir, video_name)
             download_file(video_url, local_video_path, app_logger)
+            item_name = api.video.get_free_name(dataset.id, video_name)  # checks if item with the same name exists in dataset
+            api.video.upload_paths(dataset.id, [item_name], [local_video_path])
         except Exception as e:
-            app_logger.warn(f"Error during upload {video_name}: {repr(e)}")
+            app_logger.warn(f"Error during upload {video_url}: {repr(e)}")
         finally:
             sly.fs.silent_remove(local_video_path)
 
+    api.task.set_output_project(task_id, project.id, project.name)
     my_app.stop()
 
 
