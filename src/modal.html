@@ -7,6 +7,7 @@
         <sly-select-team-workspace
             :team-id.sync="state.teamId"
             :workspace-id.sync="state.workspaceId"
+            :disabled="true"
         />
         <div class="fflex mt10">Project name:</div>
         <el-input class="mt5" v-model="state.projectName"></el-input>
