@@ -29,7 +29,7 @@ App downloads videos and then uploads them to Supervisely Storage. Video file ha
 3. Share `id` of `project_to_share` and user's `api_token` with your labeling provider.
 4. Labeling provider has to run app and in modal window define `SERVER_ADDRESS`, `id` of project that should be copied and `API_TOKEN`.
 
-<img src="https://i.imgur.com/7hdsoSU.png" width="450px"/>
+<img src="https://i.imgur.com/GYprBRr.png"/>
 
 5. Project (images/annotations/images metadata) is copied to current team/workspace with the same name.  
 
