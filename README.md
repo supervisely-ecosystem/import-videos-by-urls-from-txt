@@ -1,7 +1,7 @@
 <div align="center" markdown>
-<img src="https://i.imgur.com/xmuBeht.png"/>
+<img src="https://i.imgur.com/6T1dXGq.png"/>
 
-# Copy Project Between Supervisely Instances
+# Import Videos by URLs from text file
 
 <p align="center">
   <a href="#Overview">Overview</a> •
@@ -9,18 +9,18 @@
 </p>
 
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/copy-project-between-instances)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/import-videos-by-urls-from-txt)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/copy-project-between-instances)
-[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/copy-project-between-instances&counter=views&label=views)](https://supervise.ly)
-[![used by teams](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/copy-project-between-instances&counter=downloads&label=used%20by%20teams)](https://supervise.ly)
-[![runs](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/copy-project-between-instances&counter=runs&label=runs)](https://supervise.ly)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/import-videos-by-urls-from-txt)
+[![views](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-videos-by-urls-from-txt&counter=views&label=views)](https://supervise.ly)
+[![used by teams](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-videos-by-urls-from-txt&counter=downloads&label=used%20by%20teams)](https://supervise.ly)
+[![runs](https://app.supervise.ly/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/import-videos-by-urls-from-txt&counter=runs&label=runs)](https://supervise.ly)
 
 </div>
 
 ## Overview
 
-Illustrative Use Case: Enterprise Customer with private Supervisely Instance would like to share project with labeling provider that also has his own private Supervisely Instance. This app is useful especially when projects are huge (several gigabytes +).
+App downloads videos and then uploads them to Supervisely Storage. Video file has to be in Supervisely's internal storage to provide fast processing speed during labeling.
 
 ## How To Use
 
