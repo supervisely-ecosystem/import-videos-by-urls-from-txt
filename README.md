@@ -22,15 +22,31 @@
 
 App downloads videos and then uploads them to Supervisely Storage. Video file has to be in Supervisely's internal storage to provide fast processing speed during labeling.
 
+
+
 ## How To Use
 
-1. Create new team on `source` instance. Copy project to this team. Let's call this project: `project_to_share`.
-2. Create and invite user to this team. This new User has access only to projects in special team, all data in other teams is private.
-3. Share `id` of `project_to_share` and user's `api_token` with your labeling provider.
-4. Labeling provider has to run app and in modal window define `SERVER_ADDRESS`, `id` of project that should be copied and `API_TOKEN`.
+**Step 0:** Create text file with URLs to videos - each link on the line. For example `import_01.txt` with the following content: 
+```
+https://www.google.com/abcd.mp4
+https://ia800503.us.archive.org/29/items/meet_john_doe/meet_john_doe_512kb.mp4
+https://ia800203.us.archive.org/18/items/house_on_haunted_hill_ipod/house_on_haunted_hill_512kb.mp4
+https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4
+https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4
+```
+
+**Step 1:** Drag and drop this file to Team Files
+
+**Step 2:** Drag and drop this file to Team Files
+
+**Step 3:** Run app from the context menu of file: `context menu` -> `Run App` -> `Import videos by URLs from txt file`
 
 <img src="https://i.imgur.com/GYprBRr.png"/>
 
-5. Project (images/annotations/images metadata) is copied to current team/workspace with the same name.  
+**Step 4:** Define the name of destination project and dataset in modal window. If project doesn't exist it will be created. Project will be created in the current workspace. If you would like to change workspace, change active workspace in left sidebar and run the app again.
 
-<img src="https://i.imgur.com/bBqPCZh.png"/>
+<img src="https://i.imgur.com/CfpPCWv.png" width="500px"/>
+
+**Step 3:** Monitor progress of task in workspace tasks table. 
+
+<img src="https://i.imgur.com/0TaQRR4.png"/>
