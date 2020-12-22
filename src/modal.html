@@ -1,21 +1,16 @@
 <div>
-    <sly-select-team-workspace
-        :team-id.sync="state.teamId"
-        :workspace-id.sync="state.workspaceId"
-      />
-
-    <sly-field title="Upload to" description="Select destination project and dataset,
+    <sly-field title="Upload To" description="Select destination project and dataset,
                                               new project is created if it does not exist">
         <sly-icon slot="icon" :options="{ color: '#2cd26e', bgColor: '#d8f8e7', rounded: false }">
             <i class="zmdi zmdi-collection-video"></i>
         </sly-icon>
-        <div class="fflex mt5">
-            <div style="min-width:100px;">Project name:</div>
-            <el-input v-model="state.projectName"></el-input>
-        </div>
-        <div class="fflex mt5">
-            <div style="min-width:100px;">Dataset name:</div>
-            <el-input v-model="state.datasetName"></el-input>
-        </div>
+        <sly-select-team-workspace
+            :team-id.sync="state.teamId"
+            :workspace-id.sync="state.workspaceId"
+        />
+        <div class="fflex mt10">Project name:</div>
+        <el-input v-model="state.projectName"></el-input>
+        <div class="fflex mt5">Dataset name:</div>
+        <el-input v-model="state.datasetName"></el-input>
     </sly-field>
 </div>
