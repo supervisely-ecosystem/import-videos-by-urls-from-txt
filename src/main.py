@@ -1,32 +1,27 @@
 import os
+import requests
 import supervisely_lib as sly
 
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 INPUT_FILE = os.environ.get("modal.state.slyFile")
 PROJECT_NAME = os.environ['modal.state.projectName']
+DATASET_NAME = os.environ['modal.state.datasetName']
 
 my_app = sly.AppService()
-
-PROJECT_ID = None
-CLASSES = []
-COLOR_INS = True
-FONT = cv2.FONT_HERSHEY_COMPLEX
 
 
 def download_file(url, local_path, logger):
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
-        total_size_in_bytes = int(response.headers.get('content-length', 0))
+        total_size_in_bytes = int(r.headers.get('content-length', 0))
         progress = sly.Progress("Downloading {!r}".format(sly.fs.get_file_name_with_ext(local_path)),
                                 total_size_in_bytes, ext_logger=logger, is_size=True)
         with open(local_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
                 progress.iters_done_report(len(chunk))
-
     return local_path
-
 
 
 @my_app.callback("import_videos")
@@ -40,13 +35,21 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
     # you may also want to remove whitespace characters like `\n` at the end of each line
     video_urls = [x.strip() for x in video_urls]
 
+    project = api.project.get_info_by_name(WORKSPACE_ID, PROJECT_NAME)
+    if project is None:
+        project = api.project.create(WORKSPACE_ID, PROJECT_NAME, type=sly.ProjectType.VIDEOS)
+
+    dataset = api.dataset.get_info_by_name(project.id, DATASET_NAME)
+    if dataset is None:
+        dataset = api.dataset.create(project.id, DATASET_NAME)
+
     for video_url in video_urls:
         try:
             video_name = sly.fs.get_file_name_with_ext(video_url)
             local_video_path = os.path.join(my_app.data_dir, video_name)
-            #download_file(video_url, local_video_path, app_logger)
+            download_file(video_url, local_video_path, app_logger)
         except Exception as e:
-            app_logger.warn(f"Error during upload {video_name}: {repr(r)}")
+            app_logger.warn(f"Error during upload {video_name}: {repr(e)}")
         finally:
             sly.fs.silent_remove(local_video_path)
 
