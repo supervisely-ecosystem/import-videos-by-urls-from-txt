@@ -47,6 +47,6 @@ https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.m
 
 <img src="https://i.imgur.com/CfpPCWv.png" width="500px"/>
 
-**Step 3:** Monitor progress of task in workspace tasks table. 
+**Step 5:** Monitor progress of task in workspace tasks table. All warning and additional logs can be found in `Task Log`.
 
 <img src="https://i.imgur.com/0TaQRR4.png"/>
