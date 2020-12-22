@@ -11,11 +11,13 @@ DATASET_NAME = os.environ['modal.state.datasetName']
 my_app = sly.AppService()
 
 
-def download_file(url, local_path, logger):
+def download_file(url, local_path, logger, cur_video_index, total_videos_count):
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
         total_size_in_bytes = int(r.headers.get('content-length', 0))
-        progress = sly.Progress("Downloading {!r}".format(sly.fs.get_file_name_with_ext(local_path)),
+        progress = sly.Progress("Downloading [{}/{}] {!r}".format(cur_video_index,
+                                                                  total_videos_count,
+                                                                  sly.fs.get_file_name_with_ext(local_path)),
                                 total_size_in_bytes, ext_logger=logger, is_size=True)
         with open(local_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
@@ -48,7 +50,7 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
             app_logger.info("Processing [{}/{}]: {!r}".format(idx, len(video_urls), video_url))
             video_name = sly.fs.get_file_name_with_ext(video_url)
             local_video_path = os.path.join(my_app.data_dir, video_name)
-            download_file(video_url, local_video_path, app_logger)
+            download_file(video_url, local_video_path, app_logger, idx, len(video_urls))
             item_name = api.video.get_free_name(dataset.id, video_name)  # checks if item with the same name exists in dataset
             api.video.upload_paths(dataset.id, [item_name], [local_video_path])
         except Exception as e:
