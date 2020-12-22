@@ -2,13 +2,13 @@ import os
 import requests
 import supervisely_lib as sly
 
-TEAM_ID = int(os.environ['context.teamId'])
-WORKSPACE_ID = int(os.environ['context.workspaceId'])
+TEAM_ID = int(os.environ['modal.state.teamId'])
+WORKSPACE_ID = int(os.environ['modal.state.workspaceId'])
 INPUT_FILE = os.environ.get("modal.state.slyFile")
 PROJECT_NAME = os.environ['modal.state.projectName']
 DATASET_NAME = os.environ['modal.state.datasetName']
 
-my_app = sly.AppService()
+my_app = sly.AppService(ignore_task_id=True)
 
 
 def download_file(url, local_path, logger, cur_video_index, total_videos_count):
@@ -50,11 +50,11 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
             app_logger.info("Processing [{}/{}]: {!r}".format(idx, len(video_urls), video_url))
             video_name = sly.fs.get_file_name_with_ext(video_url)
             local_video_path = os.path.join(my_app.data_dir, video_name)
-            download_file(video_url, local_video_path, app_logger, idx, len(video_urls))
+            download_file(video_url, local_video_path, app_logger, idx + 1, len(video_urls))
             item_name = api.video.get_free_name(dataset.id, video_name)  # checks if item with the same name exists in dataset
             api.video.upload_paths(dataset.id, [item_name], [local_video_path])
         except Exception as e:
-            app_logger.warn(f"Error during upload {video_url}: {repr(e)}")
+            app_logger.warn(f"Error during import {video_url}: {repr(e)}")
         finally:
             sly.fs.silent_remove(local_video_path)
 
