@@ -26,7 +26,7 @@ App downloads videos and then uploads them to Supervisely Storage. Video file ha
 
 ## How To Use
 
-**Step 0:** Create text file with URLs to videos - each link on the line. For example `import_01.txt` with the following content: 
+**Step 1:** Create text file with URLs to videos - each link on the line. For example `import_01.txt` with the following content: 
 ```
 https://www.google.com/abcd.mp4
 https://ia800503.us.archive.org/29/items/meet_john_doe/meet_john_doe_512kb.mp4
@@ -34,8 +34,6 @@ https://ia800203.us.archive.org/18/items/house_on_haunted_hill_ipod/house_on_hau
 https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4
 https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4
 ```
-
-**Step 1:** Drag and drop this file to Team Files
 
 **Step 2:** Drag and drop this file to Team Files
 
