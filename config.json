@@ -2,8 +2,8 @@
   "name": "Import videos by URLs from txt file",
   "type": "app",
   "categories": [
-    "videos",
-    "import"
+    "import",
+    "videos"
   ],
   "description": "Downloads videos by URLs and uploads them to Supervisely Storage",
   "docker_image": "supervisely/base-py:6",
