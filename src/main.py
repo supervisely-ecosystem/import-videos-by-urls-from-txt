@@ -1,9 +1,9 @@
 import os
 import requests
-import supervisely_lib as sly
+import supervisely as sly
 
-TEAM_ID = int(os.environ['modal.state.teamId'])
-WORKSPACE_ID = int(os.environ['modal.state.workspaceId'])
+TEAM_ID = int(os.environ['context.teamId'])
+WORKSPACE_ID = int(os.environ['context.workspaceId'])
 INPUT_FILE = os.environ.get("modal.state.slyFile")
 PROJECT_NAME = os.environ['modal.state.projectName']
 DATASET_NAME = os.environ['modal.state.datasetName']
