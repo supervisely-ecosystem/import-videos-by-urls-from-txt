@@ -1,5 +1,5 @@
 <div align="center" markdown>
-<img src="[https://user-images.githubusercontent.com/48245050/182334557-d338a5c5-bb7f-41be-b20a-32cd72682e52.png](https://user-images.githubusercontent.com/106374579/182794225-97ee531e-2d68-4654-9f18-83a68b3f3efe.png)"/>
+<img src="https://user-images.githubusercontent.com/106374579/182794225-97ee531e-2d68-4654-9f18-83a68b3f3efe.png"/>
 
 # Import Videos by URLs from text file
 
