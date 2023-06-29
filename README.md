@@ -38,12 +38,12 @@ https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.m
 
 **Step 3:** Run app from the context menu of file: `context menu` -> `Run App` -> `Import videos by URLs from txt file`
 
-<img src="https://i.imgur.com/GYprBRr.png"/>
+<img src="media/htr3.png"/>
 
 **Step 4:** Define the name of destination project and dataset in modal window. If project doesn't exist it will be created. Project will be created in the current workspace. If you would like to change workspace, change active workspace in left sidebar and run the app again.
 
-<img src="https://i.imgur.com/CfpPCWv.png" width="500px"/>
+<img src="media/htr4.png" width="500px"/>
 
 **Step 5:** Monitor progress of task in workspace tasks table. All warning and additional logs can be found in `Task Log`.
 
-<img src="https://i.imgur.com/0TaQRR4.png"/>
+<img src="media/htr5.png"/>
