@@ -53,7 +53,7 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
     video_urls = [x.strip() for x in video_urls]
 
     if IMPORT_MODE == "new":
-        project_name = sly.take_with_default(PROJECT_NAME, "my-project")
+        project_name = PROJECT_NAME if PROJECT_NAME else "my-project"
         project = api.project.create(
             WORKSPACE_ID,
             project_name,
@@ -64,14 +64,14 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
 
     elif IMPORT_MODE == "project":
         project = api.project.get_info_by_id(PROJECT_ID)
-        dataset_name = sly.take_with_default(DATASET_NAME, "ds0")
+        dataset_name = DATASET_NAME if DATASET_NAME else "ds0"
         dataset = api.dataset.get_info_by_name(project.id, dataset_name)
         if dataset is None:
             dataset = api.dataset.create(project.id, dataset_name)
 
     elif IMPORT_MODE == "dataset":
         project = api.project.get_info_by_id(PROJECT_ID)
-        dataset_name = sly.take_with_default(DATASET_NAME, "ds0")
+        dataset_name = DATASET_NAME if DATASET_NAME else "ds0"
         dataset = api.dataset.get_info_by_name(project.id, dataset_name)
         if dataset is None:
             dataset = api.dataset.create(project.id, dataset_name)
