@@ -1,17 +1,68 @@
 <div>
-    <sly-field title="Upload To" description="Select destination project and dataset,
-                                              new project is created if it does not exist">
-        <sly-icon slot="icon" :options="{ color: '#2cd26e', bgColor: '#d8f8e7', rounded: false }">
-            <i class="zmdi zmdi-collection-video"></i>
-        </sly-icon>
-        <sly-select-team-workspace
-            :team-id.sync="state.teamId"
-            :workspace-id.sync="state.workspaceId"
-            :disabled="true"
-        />
-        <div class="fflex mt10">Project name:</div>
-        <el-input class="mt5" v-model="state.projectName"></el-input>
-        <div class="fflex mt10">Dataset name:</div>
-        <el-input class="mt5" v-model="state.datasetName"></el-input>
-    </sly-field>
+  <sly-field
+    title="Upload To"
+    description="Select destination project and dataset (new or existing)"
+  >
+    <sly-icon
+      slot="icon"
+      :options="{ color: '#2cd26e', bgColor: '#d8f8e7', rounded: false }"
+    >
+      <i class="zmdi zmdi-collection-video"></i>
+    </sly-icon>
+
+    <el-select v-model="state.importMode">
+      <el-option key="new" label="Create new project" value="new"></el-option>
+      <el-option
+        key="project"
+        label="Upload to existing project"
+        value="project"
+      ></el-option>
+      <el-option
+        key="dataset"
+        label="Upload to existing dataset"
+        value="dataset"
+      ></el-option>
+    </el-select>
+
+    <div v-if="state.importMode === 'new'">
+      <sly-field
+        description="Result Project Name"
+      >
+        <el-input
+          placeholder="Enter Project Name"
+          v-model="state.projectName"
+        ></el-input>
+      </sly-field>
+    </div>
+
+    <div v-if="state.importMode === 'project'">
+      <sly-select-project
+        :workspace-id="context.workspaceId"
+        :project-id.sync="state.inputProjectId"
+        :options="{availableTypes: ['videos']}"
+      ></sly-select-project>
+      <div>
+        <sly-field
+            description="Result Dataset name"
+        >
+        <el-input
+          placeholder="Enter Dataset Name"
+          v-model="state.datasets"
+        ></el-input>
+        </sly-field>
+      </div>
+    </div>
+
+    <div v-if="state.importMode === 'dataset'">
+      <sly-select-project
+        :workspace-id="context.workspaceId"
+        :project-id.sync="state.inputProjectId"
+        :options="{availableTypes: ['videos']}"
+      ></sly-select-project>
+      <sly-select-dataset
+        :project-id="state.inputProjectId"
+        :datasets.sync="state.datasets"
+      ></sly-select-dataset>
+    </div>
+  </sly-field>
 </div>

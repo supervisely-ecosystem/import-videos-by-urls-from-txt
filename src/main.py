@@ -5,14 +5,29 @@ import supervisely as sly
 TEAM_ID = int(os.environ['context.teamId'])
 WORKSPACE_ID = int(os.environ['context.workspaceId'])
 INPUT_FILE = os.environ.get("modal.state.slyFile")
-PROJECT_NAME = os.environ['modal.state.projectName']
-DATASET_NAME = os.environ['modal.state.datasetName']
+PROJECT_ID = None
+PROJECT_NAME = None
+DATASET_NAME = None
+
+IMPORT_MODE = os.environ['modal.state.importMode']
+
+if IMPORT_MODE == "new":
+    PROJECT_NAME = os.environ.get('modal.state.projectName')
+
+if IMPORT_MODE == "project":
+    PROJECT_ID = os.environ.get('modal.state.inputProjectId')
+    DATASET_NAME =  os.environ.get("modal.state.datasets")
+
+if IMPORT_MODE == "dataset":
+    PROJECT_ID = os.environ.get('modal.state.inputProjectId')
+    DATASET_NAME =  os.environ.get("modal.state.datasets")
 
 my_app = sly.AppService(ignore_task_id=True)
 
 
 def download_file(url, local_path, logger, cur_video_index, total_videos_count):
-    with requests.get(url, stream=True) as r:
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    with requests.get(url, stream=True, headers=headers) as r:
         r.raise_for_status()
         total_size_in_bytes = int(r.headers.get('content-length', 0))
         progress = sly.Progress("Downloading [{}/{}] {!r}".format(cur_video_index,
@@ -37,13 +52,29 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
     # you may also want to remove whitespace characters like `\n` at the end of each line
     video_urls = [x.strip() for x in video_urls]
 
-    project = api.project.get_info_by_name(WORKSPACE_ID, PROJECT_NAME)
-    if project is None:
-        project = api.project.create(WORKSPACE_ID, PROJECT_NAME, type=sly.ProjectType.VIDEOS)
+    if IMPORT_MODE == "new":
+        project_name = PROJECT_NAME if PROJECT_NAME else "my-project"
+        project = api.project.create(
+            WORKSPACE_ID,
+            project_name,
+            type=sly.ProjectType.VIDEOS,
+            change_name_if_conflict=True
+        )
+        dataset = api.dataset.create(project.id, "ds0")
 
-    dataset = api.dataset.get_info_by_name(project.id, DATASET_NAME)
-    if dataset is None:
-        dataset = api.dataset.create(project.id, DATASET_NAME)
+    elif IMPORT_MODE == "project":
+        project = api.project.get_info_by_id(PROJECT_ID)
+        dataset_name = DATASET_NAME if DATASET_NAME else "ds0"
+        dataset = api.dataset.get_info_by_name(project.id, dataset_name)
+        if dataset is None:
+            dataset = api.dataset.create(project.id, dataset_name)
+
+    elif IMPORT_MODE == "dataset":
+        project = api.project.get_info_by_id(PROJECT_ID)
+        dataset_name = DATASET_NAME if DATASET_NAME else "ds0"
+        dataset = api.dataset.get_info_by_name(project.id, dataset_name)
+        if dataset is None:
+            dataset = api.dataset.create(project.id, dataset_name)
 
     for idx, video_url in enumerate(video_urls):
         try:
