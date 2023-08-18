@@ -13,25 +13,17 @@ my_app = sly.AppService(ignore_task_id=True)
 
 def download_file(url, local_path, logger, cur_video_index, total_videos_count):
     headers = {'User-Agent': 'Mozilla/5.0'}
-    try:
-        with requests.get(url, stream=True, headers=headers, timeout=10) as r:
-            r.raise_for_status()
-            total_size_in_bytes = int(r.headers.get('content-length', 0))
-            progress = sly.Progress("Downloading [{}/{}] {!r}".format(cur_video_index,
-                                                                    total_videos_count,
-                                                                    sly.fs.get_file_name_with_ext(local_path)),
-                                    total_size_in_bytes, ext_logger=logger, is_size=True)
-            with open(local_path, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=8192):
-                    f.write(chunk)
-                    progress.iters_done_report(len(chunk))
-    except requests.exceptions.Timeout as e:
-        message = (
-            "Request timed out. "
-            "This may be due to server-side security measures, network congestion, or other issues."
-        )
-        logger.warn(msg=message)
-        raise e
+    with requests.get(url, stream=True, headers=headers) as r:
+        r.raise_for_status()
+        total_size_in_bytes = int(r.headers.get('content-length', 0))
+        progress = sly.Progress("Downloading [{}/{}] {!r}".format(cur_video_index,
+                                                                  total_videos_count,
+                                                                  sly.fs.get_file_name_with_ext(local_path)),
+                                total_size_in_bytes, ext_logger=logger, is_size=True)
+        with open(local_path, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+                progress.iters_done_report(len(chunk))
     return local_path
 
 
