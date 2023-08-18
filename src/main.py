@@ -12,7 +12,8 @@ my_app = sly.AppService(ignore_task_id=True)
 
 
 def download_file(url, local_path, logger, cur_video_index, total_videos_count):
-    with requests.get(url, stream=True) as r:
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    with requests.get(url, stream=True, headers=headers, timeout=10) as r:
         r.raise_for_status()
         total_size_in_bytes = int(r.headers.get('content-length', 0))
         progress = sly.Progress("Downloading [{}/{}] {!r}".format(cur_video_index,
