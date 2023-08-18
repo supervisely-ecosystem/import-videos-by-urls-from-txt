@@ -10,8 +10,10 @@
     "main_script": "src/main.py",
     "modal_template": "src/modal.html",
     "modal_template_state": {
-        "projectName": "my-videos",
-        "datasetName": "dataset-01"
+        "importMode": "new",
+        "inputProjectId": "",
+        "projectName": "",
+        "datasets": ""
     },
     "task_location": "workspace_tasks",
     "isolate": true,

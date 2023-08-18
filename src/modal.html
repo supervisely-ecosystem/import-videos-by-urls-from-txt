@@ -9,9 +9,58 @@
             :workspace-id.sync="state.workspaceId"
             :disabled="true"
         />
-        <div class="fflex mt10">Project name:</div>
-        <el-input class="mt5" v-model="state.projectName"></el-input>
-        <div class="fflex mt10">Dataset name:</div>
-        <el-input class="mt5" v-model="state.datasetName"></el-input>
+        <div>
+
+        <el-select v-model="state.importMode">
+            <el-option key="new" label="Create new project" value="new"></el-option>
+            <el-option
+            key="project"
+            label="Upload to existing project"
+            value="project"
+            ></el-option>
+            <el-option
+            key="dataset"
+            label="Upload to existing dataset"
+            value="dataset"
+            ></el-option>
+        </el-select>
+
+        <div v-if="state.importMode === 'new'">
+            <sly-field
+            title="Result Project Name"
+            description="Enter project name manually (optional) or keep empty to generate it automatically"
+            >
+            <el-input
+            placeholder="Enter Project Name"
+            v-model="state.projectName"
+            ></el-input>
+            </sly-field>
+        </div>
+
+        <div v-if="state.importMode === 'project'">
+            <sly-select-project
+            :workspace-id="context.workspaceId"
+            :project-id.sync="state.inputProjectId"
+            :options="{availableTypes: ['videos']}"
+            ></sly-select-project>
+            <el-input
+            placeholder="Enter Dataset Name"
+            v-model="state.datasets"
+            ></el-input>
+        </div>
+
+        <div v-if="state.importMode === 'dataset'">
+            <sly-select-project
+            :workspace-id="context.workspaceId"
+            :project-id.sync="state.inputProjectId"
+            :options="{availableTypes: ['videos']}"
+            ></sly-select-project>
+            <sly-select-dataset
+            :project-id="state.inputProjectId"
+            :datasets.sync="state.datasets"
+            ></sly-select-dataset>
+        </div>
+
+        </div>
     </sly-field>
 </div>
