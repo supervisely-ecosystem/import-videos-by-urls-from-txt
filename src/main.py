@@ -56,7 +56,8 @@ def import_videos(api: sly.Api, task_id, context, state, app_logger):
         except Exception as e:
             app_logger.warn(f"Error during import {video_url}: {repr(e)}")
         finally:
-            sly.fs.silent_remove(local_video_path)
+            if sly.fs.file_exists(local_video_path):
+                sly.fs.silent_remove(local_video_path)
 
     api.task.set_output_project(task_id, project.id, project.name)
     my_app.stop()
