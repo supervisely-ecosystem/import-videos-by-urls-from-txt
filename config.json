@@ -1,29 +1,30 @@
 {
-    "name": "Import videos by URLs from txt file",
-    "type": "app",
-    "categories": [
-        "import",
-        "videos"
-    ],
-    "description": "Downloads videos by URLs and uploads them to Supervisely Storage",
-    "docker_image": "supervisely/import-export:0.0.5",
-    "main_script": "src/main.py",
-    "modal_template": "src/modal.html",
-    "modal_template_state": {
-        "importMode": "new",
-        "inputProjectId": "",
-        "projectName": "",
-        "datasets": ""
-    },
-    "task_location": "workspace_tasks",
-    "isolate": true,
-    "headless": true,
-    "icon": "https://i.imgur.com/iJvQXPJ.png",
-    "icon_background": "#FFFFFF",
-    "context_menu": {
-        "target": [
-            "files_file"
-        ]
-    },
-    "poster": "https://user-images.githubusercontent.com/106374579/182794225-97ee531e-2d68-4654-9f18-83a68b3f3efe.png"
+  "name": "Import videos by URLs from txt file",
+  "type": "app",
+  "categories": [
+    "import",
+    "videos"
+  ],
+  "description": "Downloads videos by URLs and uploads them to Supervisely Storage",
+  "docker_image": "supervisely/import-export:6.73.59",
+  "main_script": "src/main.py",
+  "modal_template": "src/modal.html",
+  "modal_template_state": {
+    "importMode": "new",
+    "inputProjectId": "",
+    "projectName": "",
+    "datasets": ""
+  },
+  "task_location": "workspace_tasks",
+  "isolate": true,
+  "headless": true,
+  "icon": "https://i.imgur.com/iJvQXPJ.png",
+  "icon_background": "#FFFFFF",
+  "context_menu": {
+    "target": [
+      "files_file"
+    ]
+  },
+  "poster": "https://user-images.githubusercontent.com/106374579/182794225-97ee531e-2d68-4654-9f18-83a68b3f3efe.png",
+  "min_instance_version": "6.9.4"
 }
