@@ -1,12 +1,10 @@
 {
   "name": "Import videos by URLs from txt file",
   "type": "app",
-  "categories": [
-    "import",
-    "videos"
-  ],
+  "categories": ["import", "videos"],
   "description": "Downloads videos by URLs and uploads them to Supervisely Storage",
-  "docker_image": "supervisely/import-export:6.73.60",
+  "docker_image": "supervisely/import-export:6.73.158",
+  "min_instance_version": "6.10.0",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",
   "modal_template_state": {
@@ -21,10 +19,7 @@
   "icon": "https://i.imgur.com/iJvQXPJ.png",
   "icon_background": "#FFFFFF",
   "context_menu": {
-    "target": [
-      "files_file"
-    ]
+    "target": ["files_file"]
   },
-  "poster": "https://user-images.githubusercontent.com/106374579/182794225-97ee531e-2d68-4654-9f18-83a68b3f3efe.png",
-  "min_instance_version": "6.9.4"
+  "poster": "https://user-images.githubusercontent.com/106374579/182794225-97ee531e-2d68-4654-9f18-83a68b3f3efe.png"
 }
