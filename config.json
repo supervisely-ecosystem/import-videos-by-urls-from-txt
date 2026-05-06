@@ -4,7 +4,7 @@
   "categories": ["import", "videos"],
   "description": "Downloads videos by URLs and uploads them to Supervisely Storage",
   "docker_image": "supervisely/import-export:6.73.564",
-  "min_instance_version": "6.10.0",
+  "instance_version": "6.15.60",
   "main_script": "src/main.py",
   "modal_template": "src/modal.html",
   "modal_template_state": {
